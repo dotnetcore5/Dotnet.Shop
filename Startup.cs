@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -95,7 +91,6 @@ namespace aspCart.Web
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
-                options.CookieName = "aspCart";
             });
 
 
@@ -193,7 +188,7 @@ namespace aspCart.Web
             SampleDataProvider.ApplyMigration(app.ApplicationServices);
 
             // seed default data
-            SampleDataProvider.Seed(app.ApplicationServices, Configuration);
+            SampleDataProvider.Seed(app.ApplicationServices, Configuration, HostingEnvironment);
         }
     }
 }

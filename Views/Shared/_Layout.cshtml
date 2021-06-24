@@ -51,7 +51,8 @@
         </div>
     </nav>
      @if (User.IsInRole("Admin"))
-        {       <div class="open-admin" id="open-admin">
+        { 
+         <div class="open-admin" id="open-admin">
             <span class="fa fa-navicon">&nbsp;Admin</span>
         </div>
 
@@ -62,25 +63,25 @@
                 <div>
                     <ul>
                         <li>
-                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin dashboard</a>
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-dashboard"></i>Admin dashboard</a>
                         </li>
                         @if (ViewData["ProductId"] != null)
                         {
                             <li>
-                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@ViewData["ProductId"]">Edit product</a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@ViewData["ProductId"]"><i class="fa fa-edit" style="font-size:24px;color:red"></i> product</a>
                             </li>
                         }
                         <li>
-                            <a asp-area="Admin" asp-controller="Product" asp-action="List">Product Catalog</a>
+                            <a asp-area="Admin" asp-controller="Product" asp-action="List"><i class="fa fa-inventory"></i> Catalog</a>
                         </li>
                         <li>
-                            <a asp-area="Admin" asp-controller="Order" asp-action="List">Order List</a>
+                            <a asp-area="Admin" asp-controller="Order" asp-action="List"><i class='fa fa-comment-dollar'></i> Order</a>
                         </li>
                     </ul>
                 </div>
             </div>
-        }
-    
+     }
+
     <br />
     <div class="container-fluid">
         @RenderBody()

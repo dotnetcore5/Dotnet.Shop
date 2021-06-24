@@ -5,6 +5,7 @@ using aspCart.Core.Domain.Statistics;
 using aspCart.Core.Domain.User;
 using aspCart.Infrastructure;
 using aspCart.Infrastructure.EFModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -23,20 +25,26 @@ namespace aspCart.Web.Helpers
         #region ApplyMigrations
         public static void ApplyMigration(IServiceProvider serviceProvider)
         {
-            var context = serviceProvider.GetService<ApplicationDbContext>();
+            using (var scope = serviceProvider.CreateScope())
 
+            // check if database created
+            using (var context = scope.ServiceProvider.GetService<ApplicationDbContext>())
+            {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
+                context.Database.Migrate();
+            }
             // apply migration
-            context.Database.Migrate();
         }
         #endregion
 
         #region Seed
-        public static void Seed(IServiceProvider serviceProvider, IConfigurationRoot configuration)
+        public static void Seed(IServiceProvider serviceProvider, IConfigurationRoot configuration, IHostingEnvironment hostingEnvironment)
         {
             var context = serviceProvider.GetService<ApplicationDbContext>();
 
 
-            SeedAdminAccount(context, configuration).GetAwaiter().GetResult();
+            SeedAdminAccount(context, configuration, hostingEnvironment).GetAwaiter().GetResult();
             SeedTestAccount(context, configuration).GetAwaiter().GetResult();
             TestDataSeed(context, configuration).GetAwaiter().GetResult();
         }
@@ -98,6 +106,7 @@ namespace aspCart.Web.Helpers
         #region ImageIds
         enum ImageIds
         {
+            [EnumGuid("1c34435f-2dc2-45fc-a903-7bca40eb5671")] User,
             [EnumGuid("1c34435f-2dc2-45fc-a903-7bca40eb5674")] RogG7Front,
             [EnumGuid("cb7d5d64-283c-4d45-9c45-d48c9763956c")] RogG7Back,
             [EnumGuid("dd733338-513d-4e30-9e7f-d4b09f975dd3")] Predator17XFront,
@@ -265,6 +274,7 @@ namespace aspCart.Web.Helpers
                 new Image { Id = ImageIds.Ryzen71800x.GetGuid(), FileName = "/images/test_images/ryzen 7 1800x.jpg" },
                 new Image { Id = ImageIds.LogitechG502Main.GetGuid(), FileName = "/images/test_images/Logitech G502 main.jpg" },
                 new Image { Id = ImageIds.LogitechG502Side.GetGuid(), FileName = "/images/test_images/Logitech G502 side.jpg" },
+                new Image { Id = ImageIds.User.GetGuid(), FileName = "/images/system/user-160x160.png" },
                 new Image { Id = ImageIds.LogitechG502Bottom.GetGuid(), FileName = "/images/test_images/Logitech G502 bottom.jpg" }
             };
             context.Images.AddRange(imageList);
@@ -901,13 +911,14 @@ namespace aspCart.Web.Helpers
 
         #region Seed Admin
 
-        private static async Task SeedAdminAccount(ApplicationDbContext context, IConfigurationRoot configuration)
+        private static async Task SeedAdminAccount(ApplicationDbContext context, IConfigurationRoot configuration, IHostingEnvironment hostingEnvironment)
         {
             context.UserRoles.RemoveRange(context.UserRoles);
             context.Roles.RemoveRange(context.Roles);
             context.Users.RemoveRange(context.Users);
             await context.SaveChangesAsync();
 
+            string path = Path.Combine(hostingEnvironment.WebRootPath, "images/system/") + "user-160x160.png";
             var user = new ApplicationUser()
             {
                 Id = AccountIds.Admin.GetGuid().ToString(),
@@ -917,7 +928,8 @@ namespace aspCart.Web.Helpers
                 NormalizedEmail = configuration.GetValue<string>("AdminAccount:Email").ToUpper(),
                 EmailConfirmed = true,
                 LockoutEnabled = false,
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                ProfilePicture= File.ReadAllBytes(path)
             };
 
             var roleStore = new RoleStore<IdentityRole>(context);
@@ -937,7 +949,6 @@ namespace aspCart.Web.Helpers
                 await userStore.AddToRoleAsync(user, "Admin");
             }
         }
-
         #endregion
 
         #region Seed User
