@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\font\**" />
+    <Content Remove="wwwroot\font\**" />
+    <EmbeddedResource Remove="wwwroot\font\**" />
+    <None Remove="wwwroot\font\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\bootstrap-4.0.0-alpha.6-dist\css\bootstrap.min.css" />
+    <Content Remove="wwwroot\lib\bootstrap-4.0.0-alpha.6-dist\js\bootstrap.min.js" />
+    <Content Remove="wwwroot\lib\bootstrap-4.0.0-alpha.6-dist\js\tether.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\bootstrap-4.0.0-alpha.6-dist\css\bootstrap.min.css" />
+    <None Include="wwwroot\lib\bootstrap-4.0.0-alpha.6-dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap-4.0.0-alpha.6-dist\js\tether.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink.Loader" Version="14.1.0" />
+    <PackageReference Include="SendGrid" Version="9.24.0" />
+    <PackageReference Include="SkiaSharp" Version="2.80.2" />
+  </ItemGroup>
+
+</Project>
