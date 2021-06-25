@@ -212,10 +212,10 @@ namespace aspCart.Web.Controllers
             var user = await GetCurrentUserAsync();
             var checkoutModel = new CheckoutModel();
             var cartItems = JsonConvert.DeserializeObject<List<CartItemModel>>(Session.GetString(_cartItesmSessionKey));
-            var billingAdddressEntity = _billingAddressService.GetBillingAddressById(user.BillingAddressId);
+            var billingAdddressEntity = _billingAddressService.GetBillingAddresses();
             if (billingAdddressEntity != null)
             {
-                Session.SetString("BillingAddress", JsonConvert.SerializeObject(billingAdddressEntity));
+                Session.SetString("BillingAddress", JsonConvert.SerializeObject(billingAdddressEntity.FirstOrDefault()));
                 ViewData["BillingAddress"] = true;
             }
 

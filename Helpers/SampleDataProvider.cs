@@ -27,14 +27,12 @@ namespace aspCart.Web.Helpers
         {
             using (var scope = serviceProvider.CreateScope())
 
-            // check if database created
             using (var context = scope.ServiceProvider.GetService<ApplicationDbContext>())
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 context.Database.Migrate();
             }
-            // apply migration
         }
         #endregion
 
@@ -42,7 +40,6 @@ namespace aspCart.Web.Helpers
         public static void Seed(IServiceProvider serviceProvider, IConfigurationRoot configuration, IHostingEnvironment hostingEnvironment)
         {
             var context = serviceProvider.GetService<ApplicationDbContext>();
-
 
             SeedAdminAccount(context, configuration, hostingEnvironment).GetAwaiter().GetResult();
             SeedTestAccount(context, configuration).GetAwaiter().GetResult();
@@ -919,7 +916,7 @@ namespace aspCart.Web.Helpers
             await context.SaveChangesAsync();
 
             string path = Path.Combine(hostingEnvironment.WebRootPath, "images/system/") + "user-160x160.png";
-            var user = new ApplicationUser()
+            var admin = new ApplicationUser()
             {
                 Id = AccountIds.Admin.GetGuid().ToString(),
                 UserName = configuration.GetValue<string>("AdminAccount:Email"),
@@ -939,14 +936,14 @@ namespace aspCart.Web.Helpers
                 await roleStore.CreateAsync(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
             }
 
-            if (!context.Users.Any(u => u.UserName == user.UserName))
+            if (!context.Users.Any(u => u.UserName == admin.UserName))
             {
                 var passwordHasher = new PasswordHasher<ApplicationUser>();
-                var hashed = passwordHasher.HashPassword(user, configuration.GetValue<string>("AdminAccount:Password"));
-                user.PasswordHash = hashed;
+                var hashed = passwordHasher.HashPassword(admin, configuration.GetValue<string>("AdminAccount:Password"));
+                admin.PasswordHash = hashed;
                 var userStore = new UserStore<ApplicationUser>(context);
-                await userStore.CreateAsync(user);
-                await userStore.AddToRoleAsync(user, "Admin");
+                await userStore.CreateAsync(admin);
+                await userStore.AddToRoleAsync(admin, "Admin");
             }
         }
         #endregion
@@ -955,8 +952,8 @@ namespace aspCart.Web.Helpers
 
         private static async Task SeedTestAccount(ApplicationDbContext context, IConfigurationRoot configuration)
         {
-            // user1
-            var user1 = new ApplicationUser()
+            // basic user
+            var user = new ApplicationUser()
             {
                 Id = AccountIds.User1.GetGuid().ToString(),
                 UserName = configuration.GetValue<string>("UserAccount:Email"),
@@ -969,13 +966,21 @@ namespace aspCart.Web.Helpers
                 BillingAddressId = BillingAddressIds.Billing0.GetGuid()
             };
 
-            if (!context.Users.Any(u => u.UserName == user1.UserName))
+            var roleStore = new RoleStore<IdentityRole>(context);
+
+            if (!context.Roles.Any(r => r.Name == "Basic"))
+            {
+                await roleStore.CreateAsync(new IdentityRole { Name = "Basic", NormalizedName = "BASIC" });
+            }
+
+            if (!context.Users.Any(u => u.UserName == user.UserName))
             {
                 var passwordHasher = new PasswordHasher<ApplicationUser>();
-                var hashed = passwordHasher.HashPassword(user1, "11234");
-                user1.PasswordHash = hashed;
+                var hashed = passwordHasher.HashPassword(user, configuration.GetValue<string>("UserAccount:Password"));
+                user.PasswordHash = hashed;
                 var userStore = new UserStore<ApplicationUser>(context);
-                await userStore.CreateAsync(user1);
+                await userStore.CreateAsync(user);
+                await userStore.AddToRoleAsync(user, "Basic");
             }
         }
 
