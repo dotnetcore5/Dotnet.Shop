@@ -26,13 +26,9 @@ namespace aspCart.Web.Middleware
             var imageExtention = new List<string> { "jpg", "png" };
             bool isImage = imageExtention.Any(ext => context.Request.Path.ToString().ToLower().EndsWith(ext));
 
-            // check if the request is a valid image
             if(isImage)
             {
                 var imagePath = $"wwwroot/{Uri.UnescapeDataString(context.Request.Path.ToString())}";
-
-                // check if the image request have query string,
-                // otherwise, return to next middleware
                 if(context.Request.QueryString.HasValue)
                 {
                     int w = 0, h = 0;
@@ -45,8 +41,6 @@ namespace aspCart.Web.Middleware
                     if (imageQueryString.ContainsKey("h"))
                         h = Convert.ToInt32(imageQueryString["h"]);
 
-                    // if either width or height is present in the query string,
-                    // resize the image
                     if(w > 0 || h > 0)
                     {
                         using (var input = System.IO.File.OpenRead(imagePath))
@@ -56,7 +50,7 @@ namespace aspCart.Web.Middleware
                             w = w == 0 ? bitmap.Width : w;
                             h = h == 0 ? bitmap.Height : h;
 
-                            var scaledBitmap = bitmap.Resize(new SKImageInfo(w, h), SKBitmapResizeMethod.Lanczos3);
+                            var scaledBitmap = bitmap.Resize(new SKImageInfo(w, h), SKFilterQuality.Medium);
 
                             using (var image = SKImage.FromBitmap(scaledBitmap))
                             using (var data = image.Encode())

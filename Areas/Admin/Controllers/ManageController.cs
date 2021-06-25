@@ -57,7 +57,7 @@ namespace aspCart.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Users()
+        public IActionResult Users()
         {
             var users = _billingAddressService.GetBillingAddresses();
             var usersModel = users.Select(b => new BillingAddressModel
@@ -155,13 +155,12 @@ namespace aspCart.Areas.Admin.Controllers
         }
 
         // GET: /Manage/EditBillingAddress
-        public async Task<IActionResult> EditBillingAddress(string id)
+        public IActionResult EditBillingAddress(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
 
             }
-            var user = await GetCurrentUserAsync();
             var billingAddressEntity = _billingAddressService.GetBillingAddressByEmail(id);
             if (billingAddressEntity == null)
                 return View();

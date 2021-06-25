@@ -53,6 +53,27 @@ namespace aspCart.Infrastructure
             builder.Entity<Order>().ToTable("Order");
             builder.Entity<OrderItem>().ToTable("OrderItem");
             builder.Entity<Product>().ToTable("Product");
+
+            builder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
+            builder.Entity<Order>().ToTable("Order")
+                .Property(p => p.TotalOrderPrice)
+                .HasColumnType("decimal(18,2)");
+            builder.Entity<OrderItem>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
+            builder.Entity<OrderItem>()
+                .Property(p => p.TotalPrice)
+                .HasColumnType("decimal(18,2)");
+
+            builder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18,2)");
+            builder.Entity<Product>()
+                .Property(p => p.SpecialPrice)
+                .HasColumnType("decimal(18,2)");
+
             builder.Entity<ProductCategoryMapping>().ToTable("ProductCategoryMapping");
             builder.Entity<ProductImageMapping>().ToTable("ProductImageMapping");
             builder.Entity<ProductManufacturerMapping>().ToTable("ProductManufacturerMapping");

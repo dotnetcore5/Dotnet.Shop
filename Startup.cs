@@ -56,7 +56,7 @@ namespace aspCart.Web
 
         public IConfigurationRoot Configuration { get; }
         public MapperConfiguration MapperConfiguration { get; set; }
-        private IHostingEnvironment HostingEnvironment;
+        private readonly IHostingEnvironment HostingEnvironment;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

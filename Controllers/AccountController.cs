@@ -46,7 +46,7 @@ namespace aspCart.Web.Controllers
             {
                 var url = returnUrl.ToLower();
                 if (url.StartsWith("/admin"))
-                    return RedirectToAction("Login", "Account", new { area = "Admin", returnUrl = returnUrl });
+                    return RedirectToAction("Login", "Account", new { area = "Admin", returnUrl });
             }
 
             ViewData["ReturnUrl"] = returnUrl;
