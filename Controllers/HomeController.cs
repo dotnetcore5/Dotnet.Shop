@@ -89,6 +89,10 @@ namespace aspCart.Web.Controllers
             return View(productList);
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
         // GET: /Home/ProductInfo ?? /Product/{seo}
         public IActionResult ProductInfo(string seo)
         {
