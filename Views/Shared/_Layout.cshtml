@@ -56,37 +56,6 @@
             @await Html.PartialAsync("_LoginPartial")
         </div>
     </nav>
-    @if (User.IsInRole("Admin"))
-    {
-<div class="open-admin" id="open-admin">
-    <span class="fa fa-navicon">&nbsp;Admin</span>
-</div>
-
-                <div class="admin-menu-body" id="admin-menu-body">
-                    <div class="close-admin">
-                        <span class="fa fa-close" id="close-admin"></span>
-                    </div>
-                    <div>
-                        <ul>
-                            <li>
-                                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-dashboard"></i>Admin dashboard</a>
-                            </li>
-                            @if (ViewData["ProductId"] != null)
-                            {
-            <li>
-                <a asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@ViewData["ProductId"]"><i class="fa fa-edit" style="font-size:24px;color:red"></i> product</a>
-            </li>}
-                            <li>
-                                <a asp-area="Admin" asp-controller="Product" asp-action="List"><i class="fa fa-inventory"></i> Catalog</a>
-                            </li>
-                            <li>
-                                <a asp-area="Admin" asp-controller="Order" asp-action="List"><i class='fa fa-comment-dollar'></i> Order</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>}
-
-    <br />
     <div class="container container-fluid">
         @RenderBody()
     </div>
@@ -97,7 +66,7 @@
 </body>
 </html>
 
-<script>
+@*<script>
     $(function () {
         if (JSON.parse(sessionStorage.getItem("isAdminMenuOpen")) === true) {
             document.getElementById("admin-menu-body").style.transition = "0s";
@@ -117,4 +86,4 @@
             sessionStorage.setItem("isAdminMenuOpen", JSON.stringify(false));
         });
     });
-</script>
+</script>*@
