@@ -4,8 +4,15 @@
 }
 
 <div class="container">
+    <section class=" content-wrapper content-header">
+        <ol class=" breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i>Home </a><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+            <li class="breadcrumb-item"><a href="#"></i>Account </a><i class="fa fa-angle-double-right" aria-hidden="true"></i></li>
+            <li class="breadcrumb-item active"> Address</li>
+        </ol>
+    </section>
     <form asp-controller="Manage" asp-action="EditBillingAddress" method="post" class="form-horizontal">
-        <h4>Edit Billing Address</h4>
+        <h4>Edit Address</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
@@ -76,6 +83,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-2">
+                <div class="form-group">
+                       <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
+                    <input type="file"
+                           accept=".png,.jpg,.jpeg,.gif,.tif"
+                           class="form-control"
+                           style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                           onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                </div>
+            </div>
+            </div>
+</form>
 </div>
