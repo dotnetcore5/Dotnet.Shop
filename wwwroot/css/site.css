@@ -54,12 +54,15 @@ a.card-title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 18px;
+    font-size: 12px;
     margin-bottom: 0px;
 }
 
 .card-text:last-child {
     margin-bottom: -10px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .card-footer{

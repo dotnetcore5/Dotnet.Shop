@@ -276,6 +276,11 @@ namespace aspCart.Areas.Admin.Controllers
             }
             return View(messages);
         }
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            return RedirectToAction("Index");
+        }
         #region Helpers
 
         private void AddErrors(IdentityResult result)
