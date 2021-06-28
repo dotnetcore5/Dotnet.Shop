@@ -23,6 +23,18 @@ ul {
     list-style: none;
 }
 
+.profile-photo {
+    border: 0px !important;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+#profilePicture {
+    width: 350px;
+    height: 350px;
+    object-fit: cover"
+}
 .footer {
     position: absolute;
     bottom: 0;
