@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using aspCart.Core.Interface.Services.Messages;
 using aspCart.Web.Areas.Admin.Models.Support;
 using aspCart.Core.Domain.Messages;
+using System.IO;
 
 namespace aspCart.Web.Controllers
 {
@@ -114,24 +115,6 @@ namespace aspCart.Web.Controllers
         }
 
         // GET: /Manage/EditBillingAddress
-        [HttpGet]
-        public async Task<IActionResult> GetBillingAddress()
-        {
-            if (Session.GetString("BillingAddress") != null)
-            {
-                return Json(JsonConvert.DeserializeObject<BillingAddress>(Session.GetString("BillingAddress")));
-            }
-
-            var user = await GetCurrentUserAsync();
-            var billingAddressEntity = _billingAddressService.GetBillingAddressById(user.BillingAddressId);
-            if (billingAddressEntity == null)
-                return Json(null);
-
-            var billingAddressModel = _mapper.Map<BillingAddress, BillingAddressModel>(billingAddressEntity);
-            return Json(billingAddressEntity);
-        }
-
-        // GET: /Manage/EditBillingAddress
         public async Task<IActionResult> EditBillingAddress()
         {
             var user = await GetCurrentUserAsync();
@@ -140,7 +123,7 @@ namespace aspCart.Web.Controllers
                 return View();
 
             var billingAddressModel = _mapper.Map<BillingAddress, BillingAddressModel>(billingAddressEntity);
-
+            ViewData["image"] = user.ProfilePicture;
             return View(billingAddressModel);
         }
 
@@ -174,7 +157,17 @@ namespace aspCart.Web.Controllers
                     _billingAddressService.UpdateBillingAddress(billingAddressEntity);
                 }
 
-
+                if (Request.Form.Files.Count > 0)
+                {
+                    IFormFile file = Request.Form.Files.FirstOrDefault();
+                    using (var dataStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(dataStream);
+                        user.ProfilePicture = dataStream.ToArray();
+                    }
+                    await _userManager.UpdateAsync(user);
+                }
+                ViewData["image"] = user.ProfilePicture;
                 // update user billing address
                 user.BillingAddressId = billingAddressEntity.Id;
                 await _userManager.UpdateAsync(user);

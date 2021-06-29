@@ -11,8 +11,8 @@
             <li class="breadcrumb-item active"> Address</li>
         </ol>
     </section>
-    <form asp-controller="Manage" asp-action="EditBillingAddress" method="post" class="form-horizontal">
-        <h4>Edit Address</h4>
+    <form asp-controller="Manage" asp-action="EditBillingAddress" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <h4>Edit Profile</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
@@ -81,11 +81,11 @@
                     @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
                     {
                         <img id="profilePicture" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))" alt="User Image"> }
-                    else
+                    @*else
                     {
                         <img id="profilePicture" src="~/images/system/no-image.png" alt="User Image">
-                    }
-                    <input type="file" accept=".png,.jpg,.jpeg,.gif,.tif" class="form-control profile-photo" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                    }*@
+                    <input asp-for="@UserManager.GetUserAsync(User).Result.ProfilePicture" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" class="form-control profile-photo" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-8">

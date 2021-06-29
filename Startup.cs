@@ -188,7 +188,9 @@ namespace aspCart.Web
             {
                 // apply migration
                 SampleDataProvider.ApplyMigration(app.ApplicationServices);
-
+            }
+            if (Configuration.GetValue<bool>("Seed"))
+            { 
                 // seed default data
                 SampleDataProvider.Seed(app.ApplicationServices, Configuration, HostingEnvironment);
             }
