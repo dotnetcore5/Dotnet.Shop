@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using aspCart.Core.Interface.Services.Catalog;
 using aspCart.Web.Models;
 using AutoMapper;
 using aspCart.Core.Domain.Catalog;
 using aspCart.Infrastructure.EFModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using aspCart.Core.Interface.Services.Sale;
+using aspCart.Infrastructure.Services.Sale;
+using aspCart.Infrastructure.Services.Catalog;
 
 namespace aspCart.Web.Controllers
 {

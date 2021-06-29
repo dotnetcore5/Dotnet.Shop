@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using aspCart.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using aspCart.Core.Interface.Services.Catalog;
-using aspCart.Core.Interface.Services.User;
-using aspCart.Core.Interface.Services.Sale;
 using Microsoft.AspNetCore.Authorization;
 using aspCart.Core.Domain.User;
 using AutoMapper;
@@ -16,7 +13,10 @@ using aspCart.Infrastructure.EFModels;
 using Microsoft.AspNetCore.Identity;
 using aspCart.Core.Domain.Sale;
 using aspCart.Core.Domain.Messages;
-using aspCart.Core.Interface.Services.Messages;
+using aspCart.Infrastructure.Services.Catalog;
+using aspCart.Infrastructure.Services.User;
+using aspCart.Infrastructure.Services.Sale;
+using aspCart.Infrastructure.Services.Messages;
 
 namespace aspCart.Web.Controllers
 {

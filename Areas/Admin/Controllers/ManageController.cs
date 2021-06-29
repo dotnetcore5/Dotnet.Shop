@@ -1,9 +1,9 @@
 ﻿using aspCart.Core.Domain.Messages;
 using aspCart.Core.Domain.User;
-using aspCart.Core.Interface.Services.Messages;
-using aspCart.Core.Interface.Services.Sale;
-using aspCart.Core.Interface.Services.User;
 using aspCart.Infrastructure.EFModels;
+using aspCart.Infrastructure.Services.Messages;
+using aspCart.Infrastructure.Services.Sale;
+using aspCart.Infrastructure.Services.User;
 using aspCart.Web.Areas.Admin.Controllers;
 using aspCart.Web.Areas.Admin.Models.Support;
 using aspCart.Web.Models;

@@ -1,5 +1,5 @@
 ﻿using aspCart.Core.Domain.Catalog;
-using aspCart.Core.Interface.Services.Catalog;
+using aspCart.Infrastructure.Services.Catalog;
 using aspCart.Web.Areas.Admin.Helpers;
 using aspCart.Web.Areas.Admin.Models.Catalog;
 using AutoMapper;
@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace aspCart.Web.Areas.Admin.Controllers
 {

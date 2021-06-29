@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using aspCart.Infrastructure.Services.Statistics;
 using Microsoft.AspNetCore.Mvc;
-using aspCart.Core.Interface.Services.Statistics;
 
 namespace aspCart.Web.Areas.Admin.Controllers
 {

@@ -83,6 +83,9 @@ a.card-title {
     width:100%;
 }
 
+.card-rating {
+    font-size: 12px;
+}
 .cart-item-image {
     width: auto;
     height: auto;

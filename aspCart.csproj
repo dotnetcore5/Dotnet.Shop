@@ -32,8 +32,4 @@
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EFModels\" />
-  </ItemGroup>
-
 </Project>

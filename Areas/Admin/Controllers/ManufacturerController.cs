@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using aspCart.Core.Interface.Services.Catalog;
 using Microsoft.AspNetCore.Http;
 using aspCart.Web.Areas.Admin.Helpers;
 using AutoMapper;
 using aspCart.Web.Areas.Admin.Models.Catalog;
 using aspCart.Core.Domain.Catalog;
 using Newtonsoft.Json;
+using aspCart.Infrastructure.Services.Catalog;
 
 namespace aspCart.Web.Areas.Admin.Controllers
 {

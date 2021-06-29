@@ -1,9 +1,8 @@
-﻿using aspCart.Core.Interface.Services.Catalog;
+﻿using aspCart.Infrastructure.Services.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace aspCart.Web.Areas.Admin.Helpers
 {

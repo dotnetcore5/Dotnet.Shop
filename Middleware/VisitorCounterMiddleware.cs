@@ -1,11 +1,9 @@
 ﻿using aspCart.Core.Domain.Statistics;
-using aspCart.Core.Interface.Services.Statistics;
+using aspCart.Infrastructure.Services.Statistics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace aspCart.Web.Middleware
@@ -16,10 +14,7 @@ namespace aspCart.Web.Middleware
         private readonly IVisitorCountService _visitorCounterService;
         private readonly ILogger _logger;
 
-        public VisitorCounterMiddleware(
-            RequestDelegate next,
-            IVisitorCountService visitorCounterService,
-            ILoggerFactory logger)
+        public VisitorCounterMiddleware( RequestDelegate next, IVisitorCountService visitorCounterService, ILoggerFactory logger)
         {
             _next = next;
             _visitorCounterService = visitorCounterService;

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using aspCart.Core.Interface.Services.Messages;
 using AutoMapper;
 using aspCart.Core.Domain.Messages;
 using aspCart.Web.Areas.Admin.Models.Support;
-using SendGrid;
 using SendGrid.Helpers.Mail;
+using aspCart.Infrastructure.Services.Messages;
 
 namespace aspCart.Web.Areas.Admin.Controllers
 {

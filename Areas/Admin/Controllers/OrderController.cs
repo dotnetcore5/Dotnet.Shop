@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using aspCart.Core.Interface.Services.Sale;
-using aspCart.Core.Interface.Services.User;
 using AutoMapper;
 using aspCart.Web.Areas.Admin.Models.Sale;
 using aspCart.Core.Domain.Sale;
+using aspCart.Infrastructure.Services.User;
+using aspCart.Infrastructure.Services.Sale;
 
 namespace aspCart.Web.Areas.Admin.Controllers
 {
