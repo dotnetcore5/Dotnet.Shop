@@ -35,7 +35,6 @@ namespace aspCart.Web
 
             if (env.IsDevelopment())
             {
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets("aspnet-aspCart.Web-b7b6c0c8-2794-41a1-ad6c-528772b97f8a");
             }
 
@@ -53,12 +52,10 @@ namespace aspCart.Web
         public MapperConfiguration MapperConfiguration { get; set; }
         private readonly IHostingEnvironment HostingEnvironment;
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // idenity password requirement
             services.Configure<IdentityOptions>(options =>
@@ -70,16 +67,12 @@ namespace aspCart.Web
                 options.Password.RequireLowercase = false;
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             // configure admin account injectable
-            services.Configure<AdminAccount>(
-                Configuration.GetSection("AdminAccount"));
+            services.Configure<AdminAccount>(Configuration.GetSection("AdminAccount"));
 
-            services.Configure<UserAccount>(
-                Configuration.GetSection("UserAccount"));
+            services.Configure<UserAccount>(Configuration.GetSection("UserAccount"));
 
             services.AddMvc();
             services.AddDistributedMemoryCache();
@@ -112,7 +105,6 @@ namespace aspCart.Web
             services.AddSingleton<IFileProvider>(HostingEnvironment.ContentRootFileProvider);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
