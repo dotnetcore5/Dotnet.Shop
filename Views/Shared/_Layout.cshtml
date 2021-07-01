@@ -21,6 +21,19 @@
         <link href="~/dist/site.min.css" rel="stylesheet" />
         <script src="~/dist/site.min.js"></script>
     </environment>
+    <style>
+        .bg-faded {
+            font-weight: bold;
+            margin-bottom: 1em;
+            background-color:orangered;
+        }
+        .navbar-light .navbar-nav .nav-link {
+            color:white;
+        }
+        .navbar-light .navbar-nav .nav-link:active{
+            color:black;
+        }
+    </style>
 </head>
 <body>
     <nav class="container navbar navbar-toggleable-md navbar-light bg-faded">
@@ -28,17 +41,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand my-1"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
+        @*<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand my-1"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>*@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link my-1">Home</a>
+                    <a id="home-page" asp-controller="Home" asp-action="Index" class="nav-link my-1"><i class="fa fa-home" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="About" class="nav-link my-1">About</a>
+                    <a id="about-page" asp-controller="Home" asp-action="About" class="nav-link my-1">About</a>
                 </li>
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="ContactUs" asp-action="Index" class="nav-link my-1">Contact</a>
+                    <a id="contact-page" asp-controller="ContactUs" asp-action="Index" class="nav-link my-1">Contact</a>
                 </li>
                 <li class="nav-item">
                     @await Component.InvokeAsync("Category")

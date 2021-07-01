@@ -2,6 +2,11 @@
 @{
     ViewData["Title"] = "Cart";
 }
+<script>
+    $(function () {
+        $("#cart-page").addClass("active");
+    });
+</script>
 
 <div class="container">
     @if (Model != null && Model.Count() > 0)
