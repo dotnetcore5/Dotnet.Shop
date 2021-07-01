@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = ViewData["Category"];
 }
-
+<script>
+    $(function () {
+        $("#category-page").addClass("active");
+    });
+</script>
 <div class="row-side">
     <div class="left-nav">
         @await Component.InvokeAsync("Filter", new { categoryFilter = ViewData["Category"] })
