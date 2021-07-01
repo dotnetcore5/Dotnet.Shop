@@ -84,6 +84,21 @@
                     <li><a id="menu-support-writeus" asp-controller="ContactUsMessage" asp-action="Create"><i class="fa fa-circle-o"></i><span>Write Email</span></a></li>
                 </ul>
             </li>
+            <!-- Website settings bar -->
+            <li id="menu-settings" class="treeview">
+                <a href="#">
+                    <i class="fa fa-cog"></i> <span>Site settings</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a id="menu-settings-page" asp-controller="Page" asp-action="Index"><i class="fa fa-circle-o"></i><span>Manage page</span></a></li>
+                </ul>
+                <ul class="treeview-menu">
+                    <li><a id="menu-settings-site" asp-controller="Site" asp-action="Index"><i class="fa fa-circle-o"></i><span>Manage Site</span></a></li>
+                </ul>
+            </li>
         </ul>
 
         <!-- /.sidebar-menu -->
