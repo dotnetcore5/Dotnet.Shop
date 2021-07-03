@@ -5,7 +5,7 @@
 <style>
     .account-dropdown {
         display: inline-block;
-        width: 140px;
+        width: 150px;
     }
 
     .profile-user-img {
@@ -52,9 +52,9 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     @if (User.IsInRole("Admin"))
                     { 
-                        <a asp-controller="Admin" asp-action="Index" class="btn btn-success navbar-btn mx-1 my-1 account-dropdown"><i class="fa fa-cog fa-spin" aria-hidden="true"></i> Settings</a>
+                        <a asp-controller="Admin" asp-action="Index" class="btn btn-success navbar-btn mx-1 my-1 account-dropdown"><i class="fa fa-cog fa-spin" aria-hidden="true"></i> Store Admin</a>
                     }
-                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="btn btn-success navbar-btn mx-1 my-1 account-dropdown"><i class="fa fa-cog" aria-hidden="true"></i> Manage</a>
+                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="btn btn-success navbar-btn mx-1 my-1 account-dropdown"><i class="fa fa-cog" aria-hidden="true"></i> Manage Profile</a>
                     <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary navbar-btn mx-1 my-1 account-dropdown"><i class="fa fa-power-off" aria-hidden="true"></i> Log off</a>
                 </div>
             </li>

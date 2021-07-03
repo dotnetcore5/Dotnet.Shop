@@ -23,15 +23,29 @@
     </environment>
     <style>
         .bg-faded {
-            font-weight: bold;
-            margin-bottom: 1em;
-            background-color:orangered;
+            background-color:orange;
         }
         .navbar-light .navbar-nav .nav-link {
             color:white;
         }
-        .navbar-light .navbar-nav .nav-link:active{
-            color:black;
+        .navbar-light .navbar-nav .nav-link:active, .navbar-light .navbar-nav .nav-link:hover{
+            color: lawngreen;
+        }
+            .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.open, .navbar-light .navbar-nav .open > .nav-link {
+                color: lawngreen;
+            }
+        .search-button {
+            border: 1px solid rgba(0,0,0,.15);
+            border-left: none;
+            border-radius: 0 .3em .3em 0;
+        }
+        .logo-icon {
+            object-fit: cover;
+            border: 1px solid #fff;
+            font-size: 2.5em;
+            color: orange;
+            background-color:white;
+            margin-right:1em;
         }
     </style>
 </head>
@@ -40,18 +54,17 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        @*<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand my-1"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>*@
+        <a href="/"> <i class="fa fa-shopping-basket logo-icon"></i></a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">   
-                    <a id="home-page" asp-controller="Home" asp-action="Index" class="nav-link my-1"><i class="fa fa-home" aria-hidden="true"></i></a>
+                <li id="home-page" class="nav-item">
+                    <a asp-controller="Home" asp-action="Index" class="nav-link my-1"><i class="fa fa-home" aria-hidden="true"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a id="about-page" asp-controller="Home" asp-action="About" class="nav-link my-1">About</a>
+                <li id="about-page" class="nav-item">
+                    <a asp-controller="Home" asp-action="About" class="nav-link my-1">About</a>
                 </li>
-                <li class="nav-item">
-                    <a id="contact-page" asp-controller="ContactUs" asp-action="Index" class="nav-link my-1">Contact</a>
+                <li id="contact-page" class="nav-item">
+                    <a asp-controller="ContactUs" asp-action="Index" class="nav-link my-1">Contact</a>
                 </li>
                 <li class="nav-item">
                     @await Component.InvokeAsync("Category")
@@ -60,7 +73,7 @@
                     <form asp-area="" asp-controller="Home" asp-action="ProductSearch" method="get" class="form-inline">
                         <div class="input-group">
                             <input class="form-control" name="name" placeholder="search product(s)">
-                            <button style="border:1px solid rgba(0,0,0,.15);border-left:none;border-radius:0 .3em .3em 0;" type="submit"><i class="fa fa-search"></i></button>
+                            <button id="search-button" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
                 </li>
@@ -68,6 +81,7 @@
             @await Html.PartialAsync("_LoginPartial")
         </div>
     </nav>
+    <br />
     <div class="container container-fluid">
         @RenderBody()
     </div>
