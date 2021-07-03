@@ -3,6 +3,7 @@ using aspCart.Core.Domain.Messages;
 using aspCart.Core.Domain.Sale;
 using aspCart.Core.Domain.Statistics;
 using aspCart.Core.Domain.User;
+using aspCart.Domain.Website;
 using aspCart.Infrastructure.EFModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace aspCart.Infrastructure
         {
         }
 
+        public DbSet<SitePage> SitePages { get; set; }
         public DbSet<BillingAddress> BillingAddresses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }

@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = ViewData["Category"];
 }
-
+<script>
+    $(function () {
+        $("#categoryDropdown").addClass("active");
+    });
+</script>
 <div class="row-side">
     <div class="left-nav">
         @await Component.InvokeAsync("Filter", new { categoryFilter = ViewData["Category"] })
@@ -20,7 +24,7 @@
             <div class="col-md-12">
                 <form id="sortByForm">
                     <label>Sort by: </label>
-                    <select id="sortBy">
+                    <select class="form-control" id="sortBy">
                         <option id="Default" value="Default">Default</option>
                         <option id="LowestPrice" value="LowestPrice">Lowest Price</option>
                         <option id="HighestPrice" value="HighestPrice">Highest Price</option>
