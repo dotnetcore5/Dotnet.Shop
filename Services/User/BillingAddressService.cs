@@ -2,6 +2,7 @@
 using aspCart.Infrastructure.EFModels;
 using aspCart.Infrastructure.EFRepository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace aspCart.Infrastructure.Services.User
@@ -30,6 +31,7 @@ namespace aspCart.Infrastructure.Services.User
         /// </summary>
         /// <param name="billingAddress">Billing address entity</param>
         void UpdateBillingAddress(BillingAddress billingAddress);
+        void DeleteBillingAddresses(List<string> emails);
     }
     public class BillingAddressService : IBillingAddressService
     {
@@ -48,6 +50,12 @@ namespace aspCart.Infrastructure.Services.User
         {
             _context = context;
             _billingAddressRepository = billingAddressRepository;
+        }
+
+        public void DeleteBillingAddresses(List<string> emails)
+        {
+            _context.BillingAddresses.RemoveRange(_context.BillingAddresses.Where(b=>emails.Any( e=> e == b.Email.ToLowerInvariant())));
+            _context.SaveChanges();
         }
 
         #endregion
@@ -72,7 +80,7 @@ namespace aspCart.Infrastructure.Services.User
 
         public IQueryable<BillingAddress> GetBillingAddresses()
         {
-            return _billingAddressRepository.GetAll();
+            return _billingAddressRepository.GetAll().Where(B=>_context.Users.Any(u=>u.BillingAddressId== B.Id));
         }
 
         public IQueryable<ApplicationUser> GetUsers()

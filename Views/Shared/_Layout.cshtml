@@ -49,7 +49,7 @@
         }
     </style>
 </head>
-<body>
+<body onbeforeunload="displayBusyIndicator()">
     <nav class="container navbar navbar-toggleable-md navbar-light bg-faded">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -73,7 +73,7 @@
                     <form asp-area="" asp-controller="Home" asp-action="ProductSearch" method="get" class="form-inline">
                         <div class="input-group">
                             <input class="form-control" name="name" placeholder="search product(s)">
-                            <button id="search-button" type="submit"><i class="fa fa-search"></i></button>
+                            <button id="search-button" type="submit" onclick="displayBusyIndicator()"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
                 </li>
@@ -82,8 +82,11 @@
         </div>
     </nav>
     <br />
-    <div class="container container-fluid">
-        @RenderBody()
+    <div id="page-container" class="container container-fluid">
+        @await Html.PartialAsync("_LoadingPartial")
+        <div id="page-content">
+            @RenderBody()
+        </div>
     </div>
 
     @await Html.PartialAsync("_Footer")
@@ -91,25 +94,3 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
-
-@*<script>
-    $(function () {
-        if (JSON.parse(sessionStorage.getItem("isAdminMenuOpen")) === true) {
-            document.getElementById("admin-menu-body").style.transition = "0s";
-            document.getElementById("admin-menu-body").style.right = "0px";
-        }
-    });
-
-    $(function () {
-        $('#open-admin').on('click', function () {
-            document.getElementById("admin-menu-body").style.right = "0px";
-            sessionStorage.setItem("isAdminMenuOpen", JSON.stringify(true));
-        });
-
-        $('#close-admin').on('click', function () {
-            document.getElementById("admin-menu-body").style.transition = "0.5s";
-            document.getElementById("admin-menu-body").style.right = "-200px";
-            sessionStorage.setItem("isAdminMenuOpen", JSON.stringify(false));
-        });
-    });
-</script>*@

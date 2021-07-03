@@ -133,27 +133,6 @@ namespace aspCart.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index), new { Message = ManageMessageId.Error });
         }
 
-
-        // GET: /Manage/EditBillingAddress
-        [HttpGet]
-        public async Task<IActionResult> EditBillingAddress()
-        {
-            if (Session.GetString("BillingAddress") != null)
-            {
-                var userBilling = JsonConvert.DeserializeObject<BillingAddress>(Session.GetString("BillingAddress"));
-                var userBillingModel = _mapper.Map<BillingAddress, BillingAddressModel>(userBilling);
-                return View(userBillingModel);
-            }
-
-            var user = await GetCurrentUserAsync();
-            var billingAddressEntity = _billingAddressService.GetBillingAddressById(user.BillingAddressId);
-            if (billingAddressEntity == null)
-                return View();
-
-            var billingAddressModel = _mapper.Map<BillingAddress, BillingAddressModel>(billingAddressEntity);
-            return View(billingAddressModel);
-        }
-
         // GET: /Manage/EditBillingAddress
         public IActionResult EditBillingAddress(string id)
         {
@@ -206,7 +185,7 @@ namespace aspCart.Areas.Admin.Controllers
                 await _userManager.UpdateAsync(user);
             }
 
-            return View(model);
+            return RedirectToAction("Users");
         }
 
         // GET: /Manage/OrderHistoryList
@@ -277,9 +256,10 @@ namespace aspCart.Areas.Admin.Controllers
             return View(messages);
         }
         [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(List<string> ids)
         {
-            return RedirectToAction("Index");
+            _billingAddressService.DeleteBillingAddresses(ids);
+            return RedirectToAction("Users");
         }
         #region Helpers
 

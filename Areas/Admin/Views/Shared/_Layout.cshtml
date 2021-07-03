@@ -30,6 +30,7 @@
         <script src="~/lib/icheck/icheck.js"></script>
         <script src="~/lib/raphael/raphael.min.js"></script>
         <script src="~/lib/morris.js/morris.min.js"></script>
+        <script src="~/js/site.js"></script>
         @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     </environment>
 
@@ -43,7 +44,7 @@
     </environment>
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" onbeforeunload="displayBusyIndicator()">
     <div class="wrapper">
         <!-- Main Header -->
         @await Html.PartialAsync("_TopMenu")
@@ -51,28 +52,31 @@
         @await Html.PartialAsync("_LeftMenu")
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    @ViewData["ContentHeader"]
-                    <small>@await RenderSectionAsync("headerLeftOptional", required: false)</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-                    <li class="active">Dashboard</li>
-                </ol>
-            </section>
-            <section class="content-header clearfix">
-                <div class="pull-left">
-                    @await RenderSectionAsync("actionHeader", required: false)
-                </div>
-            </section>
-            <!-- Main content -->
-            <section class="content">
-                <!-- Your Page Content Here -->
-                @RenderBody()
-            </section>
-            <!-- /.content -->
+        @await Html.PartialAsync("_LoadingPartial")
+            <div id="page-content">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        @ViewData["ContentHeader"]
+                        <small>@await RenderSectionAsync("headerLeftOptional", required: false)</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </section>
+                <section class="content-header clearfix">
+                    <div class="pull-left">
+                        @await RenderSectionAsync("actionHeader", required: false)
+                    </div>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <!-- Your Page Content Here -->
+                    @RenderBody()
+                </section>
+                <!-- /.content -->
+            </div>
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
