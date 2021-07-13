@@ -26,11 +26,25 @@
             <form asp-area="" asp-controller="ContactUs" asp-action="CreateMessage" method="post">
                 <div class="form-group">
                     <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control max-width" placeholder="optional" />
+                    @if (Model.Name != null)
+                    {
+                        <input asp-for="Name" class="form-control max-width" placeholder="optional" value="@Model.Name" disabled />
+                    }
+                    else
+                    {
+                        <input asp-for="Name" class="form-control max-width" placeholder="optional" />
+                    }
                 </div>
                 <div class="form-group">
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control max-width" />
+                    @if (Model.Email != null)
+                    {
+                        <input asp-for="Email" class="form-control max-width" value="@Model.Email" disabled />
+                    }
+                    else
+                    {
+                        <input asp-for="Email" class="form-control max-width" />
+                    }
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">

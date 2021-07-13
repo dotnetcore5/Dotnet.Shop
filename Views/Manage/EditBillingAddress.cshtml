@@ -76,15 +76,15 @@
 
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-4">
-                <div class="form-group">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-4" style="border:1px solid #ccc;">
+                <div class="form-group" style="position:absolute;bottom:0;">
                     @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
                     {
                         <img id="profilePicture" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))" alt="User Image"> }
-                    @*else
+                    else
                     {
                         <img id="profilePicture" src="~/images/system/no-image.png" alt="User Image">
-                    }*@
+                    }
                     <input asp-for="@UserManager.GetUserAsync(User).Result.ProfilePicture" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" class="form-control profile-photo" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
                 </div>
             </div>
