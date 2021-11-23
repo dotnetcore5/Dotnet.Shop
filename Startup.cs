@@ -176,7 +176,7 @@ namespace aspCart.Web
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Index}/{action=Index}/{id?}");
             });
 
             if (Configuration.GetValue<bool>("Migrate"))

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,44 +21,190 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
 
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">-->
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
     <environment names="Staging,Production">
         <link href="~/dist/site.min.css" rel="stylesheet" />
         <script src="~/dist/site.min.js"></script>
     </environment>
 </head>
 <body>
-    <nav class="container navbar navbar-toggleable-md navbar-light bg-faded">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center">
 
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand my-1"><i class="fa fa-shopping-bag" aria-hidden="true"></i></a>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link my-1">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="About" class="nav-link my-1">About</a>
-                </li>
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="ContactUs" asp-action="Index" class="nav-link my-1">Contact</a>
-                </li>
-                <li class="nav-item">
-                    @await Component.InvokeAsync("Category")
-                </li>
-                <li class="nav-item">
-                    <form asp-area="" asp-controller="Home" asp-action="ProductSearch" method="get" class="form-inline">
-                        <div class="input-group">
-                            <input class="form-control" name="name" placeholder="search product(s)">
-                            <button style="border:1px solid rgba(0,0,0,.15);border-left:none;border-radius:0 .3em .3em 0;" type="submit"><i class="fa fa-search"></i></button>
-                        </div>
-                    </form>
-                </li>
-            </ul>
-            @await Html.PartialAsync("_LoginPartial")
+            <div class="logo me-auto">
+                <!--<h1><a href="index.html">its aby</a></h1>-->
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
+            </div>
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="#hero"><img src="assets/img/house.png"> home </a></li>
+                    <li><a class="nav-link scrollto" href="#features"><img src="assets/img/services.png"> services</a></li>
+                    <li><a class="nav-link scrollto" href="#contact"><img src="assets/img/contact.png"> contact</a></li>
+                    <li><a class="nav-link scrollto" href="/Account/Login"><img src="assets/img/contact.png"> login</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+            <!--<div class="header-social-links d-flex align-items-center">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+            </div>-->
+
         </div>
-    </nav>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+                    <div>
+                        <h1>designing digital products that help grow businesses</h1>
+                        <h2>talented designers making bespoke sofwares</h2>
+                        <a href="#contact" class="btn-get-started scrollto">contact us</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left">
+                    <img src="assets/img/hero-img.png" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+    <main id="main">
+
+        <!-- ======= Features Section ======= -->
+        <section id="features" class="features section-bg">
+            <div class="container">
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Services</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 mt-2 mb-tg-0 order-2 order-lg-1">
+                        <ul class="nav nav-tabs flex-column">
+                            <li class="nav-item" data-aos="fade-up">
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">
+                                    <h4><i class="bi bi-check-circle"></i>  Software development</h4>
+                                    <p>Creating bespoke software applications.</p>
+                                </a>
+                            </li>
+                            <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
+                                    <h4><i class="bi bi-check-circle"></i>  IT Consulting</h4>
+                                    <p>Providing best and viable solutions.</p>
+                                </a>
+                            </li>
+                            <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="200">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
+                                    <h4><i class="bi bi-check-circle"></i>  Software training</h4>
+                                    <p>Providing software development upskilling.</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in">
+                        <div class="tab-content">
+                            <div class="tab-pane active show" id="tab-1">
+                                <figure>
+                                    <img src="assets/img/features-1.png" alt="" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <figure>
+                                    <img src="assets/img/features-2.png" alt="" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="tab-pane" id="tab-3">
+                                <figure>
+                                    <img src="assets/img/features-3.png" alt="" class="img-fluid">
+                                </figure>
+                            </div>
+                            <div class="tab-pane" id="tab-4">
+                                <figure>
+                                    <img src="assets/img/features-4.png" alt="" class="img-fluid">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Features Section -->
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+            <div class="container">
+
+                <div class="section-title" data-aos="fade-up">
+                    <h2>Contact Us</h2>
+                </div>
+
+                <div class="row">
+
+                    <div style="border:1px solid;" class="company-address-map col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.876980486498!2d145.16279531526473!3d-37.83976574330468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad63f3ea123d939%3A0x69ac04c7de00532e!2sUnit%202%2F94%20Mahoneys%20Rd%2C%20Forest%20Hill%20VIC%203131!5e0!3m2!1sen!2sau!4v1630317666716!5m2!1sen!2sau" frameborder="1" style="border:1px; width: 100%; height: 350px;" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="100">
+                        <div class="contact-about">
+                            <!--<h3>its aby</h3>-->
+                            <div class="logo me-auto">
+                                <!--<h1><a href="index.html">its aby</a></h1>-->
+                                <!--<a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+                            </div>
+                            <!--<div class="social-links">
+                              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            </div>-->
+                        </div>
+                        <div class="info">
+                            <div class="address">
+                                <i class="bi bi-geo-alt"></i>
+                                <h4>Location:</h4>
+                                <p>2/94 Mahoneys Road Forest Hill VIC 3131</p>
+                            </div>
+
+                            <div class="email">
+                                <i class="bi bi-envelope"></i>
+                                <h4>Email:</h4>
+                                <p><a href="mailto:its.aby@email.com"> its.aby@email.com</a></p>
+                            </div>
+
+                            <div class="phone">
+                                <i class="bi bi-phone"></i>
+                                <h4>Call:</h4>
+                                <p>+61 432 854 196</p>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section><!-- End Contact Section -->
+    </main><!-- End #main -->
     <div class="container container-fluid">
         @RenderBody()
     </div>
@@ -62,27 +212,37 @@
     @await Html.PartialAsync("_Footer")
     @RenderSection("menu", required: false)
     @RenderSection("scripts", required: false)
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
 
 @*<script>
-    $(function () {
-        if (JSON.parse(sessionStorage.getItem("isAdminMenuOpen")) === true) {
-            document.getElementById("admin-menu-body").style.transition = "0s";
-            document.getElementById("admin-menu-body").style.right = "0px";
-        }
-    });
-
-    $(function () {
-        $('#open-admin').on('click', function () {
-            document.getElementById("admin-menu-body").style.right = "0px";
-            sessionStorage.setItem("isAdminMenuOpen", JSON.stringify(true));
+        $(function () {
+            if (JSON.parse(sessionStorage.getItem("isAdminMenuOpen")) === true) {
+                document.getElementById("admin-menu-body").style.transition = "0s";
+                document.getElementById("admin-menu-body").style.right = "0px";
+            }
         });
 
-        $('#close-admin').on('click', function () {
-            document.getElementById("admin-menu-body").style.transition = "0.5s";
-            document.getElementById("admin-menu-body").style.right = "-200px";
-            sessionStorage.setItem("isAdminMenuOpen", JSON.stringify(false));
+        $(function () {
+            $('#open-admin').on('click', function () {
+                document.getElementById("admin-menu-body").style.right = "0px";
+                sessionStorage.setItem("isAdminMenuOpen", JSON.stringify(true));
+            });
+
+            $('#close-admin').on('click', function () {
+                document.getElementById("admin-menu-body").style.transition = "0.5s";
+                document.getElementById("admin-menu-body").style.right = "-200px";
+                sessionStorage.setItem("isAdminMenuOpen", JSON.stringify(false));
+            });
         });
-    });
-</script>*@
+    </script>*@
